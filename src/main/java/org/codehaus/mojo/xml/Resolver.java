@@ -349,12 +349,15 @@ public class Resolver
             URI resourceASURI = new URI (pResource);
             if (pBaseURI!=null &&!resourceASURI.isAbsolute() && pBaseURI.isAbsolute()){
                 resourceASURI=pBaseURI.resolve( resourceASURI );
-                final URL url = resourceASURI.toURL();
-                stream = url.openStream();
-                stream.close();
-                stream = null;
-                return url;
-                
+                try {
+                    final URL url = resourceASURI.toURL();
+                    stream = url.openStream();
+                    stream.close();
+                    stream = null;
+                    return url;
+                } catch (IllegalArgumentException iaex) {
+                  throw new RuntimeException(String.format("pBaseURI: %s, resourceASURI: %s, ", pBaseURI, resourceASURI), iaex);
+                }
             }
         }
         catch ( URISyntaxException ex )
