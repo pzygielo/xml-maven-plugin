@@ -249,6 +249,7 @@ public class Resolver
         if (pBaseURI!=null){
             try
             {
+                System.err.println(String.format("pBaseURI: %s", pBaseURI));
                 baseURI = new URI(pBaseURI);
             }
             catch ( URISyntaxException ex )
@@ -356,7 +357,7 @@ public class Resolver
                     stream = null;
                     return url;
                 } catch (IllegalArgumentException iaex) {
-                  throw new RuntimeException(String.format("pBaseURI: %s, resourceASURI: %s, ", pBaseURI, resourceASURI), iaex);
+                  throw new RuntimeException(String.format("pBaseURI: %s, resourceASURI: %s", pBaseURI, resourceASURI), iaex);
                 }
             }
         }
